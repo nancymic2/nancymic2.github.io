@@ -1,0 +1,63 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+<div id="numbers" style="width: 300px; height: 300px; background: #eeeeee;"></div>
+<div id="clicker" style="width: 30px; height: 30px; background: #dddddd;" onclick="stop()"></div>
+<script>
+
+	$(document).ready(function(){
+    animateDiv();
+    
+});
+
+function makeNewPosition(){
+    
+    // Get viewport dimensions (remove the dimension of the div)
+    var h = $(window).height() - 50;
+    var w = $(window).width() - 50;
+    
+    var nh = Math.floor(Math.random() * h);
+    var nw = Math.floor(Math.random() * w);
+    
+    return [nh,nw];    
+    
+}
+
+function animateDiv(){
+    var newq = makeNewPosition();
+    $('#numbers').animate({ top: newq[0], left: newq[1] }, function(){
+      animateDiv();        
+    });
+    
+};
+
+
+
+var array=[];
+var myListener = function (event) {
+
+  //  document.removeEventListener('mousemove', myListener, false);
+
+    var pos= parseInt(Math.random(Math.round(event.pageY / event.pageX *5000))*500000); // + " " + array.length.toString();
+
+    array.push(pos);
+    //document.body.innerText = pos;
+    document.getElementById('numbers').innerText = pos;
+};
+
+document.addEventListener('mousemove', myListener, false);
+
+function stop() {
+	alert(array.length);
+}
+
+</script>
+</body>
+</html>
